@@ -6,8 +6,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 
-import java.util.UUID;
-
 @Component
 public class BootstrapCLR implements CommandLineRunner {
 
@@ -24,7 +22,7 @@ public class BootstrapCLR implements CommandLineRunner {
                 .thenMany(
                         Flux.just("Silence", "Flux", "Mono",
                                 "Back to the future", "Lord of Dawn")
-                                .map(title -> new Movie(UUID.randomUUID().toString(), title))
+                                .map(title -> new Movie(title))
                                 .flatMap(movieRepository::save))
                 .subscribe(null, null, () -> {
                     movieRepository.findAll().subscribe(System.out::println);
